@@ -1,0 +1,26 @@
+# Cache immutable hashed assets for 1 full year (browsers and Cloudflare Edge CDN cache them with zero revalidations)
+/assets/*
+  Cache-Control: public, max-age=31536000, immutable
+  Access-Control-Allow-Origin: *
+
+# Cache static images and icons for 7 days with stale-while-revalidate
+/*.png
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/*.jpg
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/*.svg
+  Cache-Control: public, max-age=604800, stale-while-revalidate=86400
+/favicon.ico
+  Cache-Control: public, max-age=604800
+
+# Cache PWA Web App Manifest for 1 day
+/manifest.json
+  Cache-Control: public, max-age=86400
+
+# Service Worker must always be revalidated so updates are applied instantly
+/sw.js
+  Cache-Control: public, max-age=0, must-revalidate
+
+# HTML navigation shell must revalidate to pick up newly deployed asset hashes
+/*
+  Cache-Control: public, max-age=0, must-revalidate
